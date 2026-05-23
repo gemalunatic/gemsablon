@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEM SABLON — Custom Fashion Product</title>
+  <meta name="description" content="GEM SABLON — Spesialis custom sablon & bordir premium. Kaos, polo, hoodie, topi, jaket, varsity dengan kualitas terbaik. Order via WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --black: #080808;
+      --off-black: #111111;
+      --dark: #181818;
+      --mid: #2a2a2a;
+      --muted: #555555;
+      --silver: #888888;
+      --light: #cccccc;
+      --off-white: #e8e5df;
+      --white: #f5f2ec;
+      --accent: #c8b89a;
+      --accent-dim: #8a7d68;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--off-white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* TYPOGRAPHY */
+    .font-display { font-family: 'Barlow Condensed', sans-serif; }
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .font-body { font-family: 'Barlow', sans-serif; }
+
+    /* SECTION DIVIDER */
+    .divider {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--muted), transparent);
+      margin: 0 auto;
+    }
+
+    /* ANIMATED UNDERLINE */
+    .underline-anim {
+      position: relative;
+      display: inline-block;
+    }
+    .underline-anim::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+    .underline-anim:hover::after { width: 100%; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo img {
+      height: 44px;
+      filter: invert(1) brightness(0.9);
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--silver);
+      transition: color 0.3s;
+      margin-left: 2.5rem;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(200,184,154,0.04) 0%, transparent 60%),
+                  linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.6) 100%);
+      pointer-events: none;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--off-black);
+    }
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+    }
+
+    .hero-counter {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-headline span { color: var(--accent); }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--silver);
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-tags {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+    }
+    .hero-tags span {
+      margin: 0 0.75rem;
+      color: var(--accent-dim);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.76,0,0.24,1);
+    }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary:hover { color: var(--black); }
+    .btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-wa-green {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      color: #25D366;
+      border: 1px solid rgba(37,211,102,0.35);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-wa-green:hover {
+      background: rgba(37,211,102,0.1);
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    /* ABOUT */
+    #about {
+      padding: 8rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .about-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(6rem, 15vw, 14rem);
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(255,255,255,0.03);
+      position: absolute;
+      top: -2rem;
+      left: -1rem;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* STAT CARDS */
+    .stat-card {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+    }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* PRODUCTS */
+    #products {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      margin-top: 4rem;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .product-card {
+      background: var(--off-black);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+      cursor: pointer;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.76,0,0.24,1);
+    }
+    .product-card:hover { background: var(--dark); }
+    .product-card:hover::before { transform: scaleX(1); }
+    .product-icon {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      filter: grayscale(1) opacity(0.6);
+      transition: filter 0.3s;
+    }
+    .product-card:hover .product-icon { filter: grayscale(0) opacity(1); }
+    .product-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .product-desc {
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: var(--silver);
+      margin-bottom: 1.5rem;
+    }
+    .product-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid rgba(200,184,154,0.3);
+      color: var(--accent-dim);
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* WHY US */
+    #why {
+      padding: 8rem 3rem;
+      background: var(--off-black);
+      position: relative;
+      overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,184,154,0.4), transparent);
+    }
+    #why::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,184,154,0.4), transparent);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 4rem auto 0;
+    }
+    .why-card {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .why-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-dim);
+      margin-bottom: 0.5rem;
+    }
+    .why-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .why-desc {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--silver);
+    }
+
+    /* GALLERY */
+    #gallery {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 320px 240px;
+      gap: 2px;
+      margin-top: 4rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--mid);
+    }
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+    }
+    .gallery-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,8,0.5);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .gallery-inner-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    }
+
+    /* PROCESS */
+    #process {
+      padding: 8rem 3rem;
+      background: var(--off-black);
+      position: relative;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: 1200px;
+      margin: 5rem auto 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--mid), var(--mid), transparent);
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+    }
+    .step-num {
+      width: 5rem;
+      height: 5rem;
+      border: 1px solid rgba(200,184,154,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent);
+      background: var(--off-black);
+      position: relative;
+      z-index: 1;
+    }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .step-desc {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--silver);
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      padding: 8rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 4rem;
+    }
+    .testi-card {
+      background: var(--off-black);
+      padding: 2.5rem;
+    }
+    .testi-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--light);
+      margin-bottom: 2rem;
+    }
+    .testi-quote::before {
+      content: '"';
+      font-size: 4rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--accent-dim);
+      line-height: 0;
+      vertical-align: -1.5rem;
+      margin-right: 0.25rem;
+    }
+    .testi-author {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .testi-author strong {
+      display: block;
+      color: var(--silver);
+      margin-bottom: 0.2rem;
+      font-size: 0.8rem;
+    }
+    .stars {
+      color: var(--accent);
+      font-size: 0.75rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* FINAL CTA */
+    #cta-final {
+      padding: 10rem 3rem;
+      text-align: center;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    #cta-final::before {
+      content: 'ORDER';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(8rem, 25vw, 22rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.02);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+    .cta-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+    .cta-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--silver);
+      margin: 1.5rem 0 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--off-black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 5rem 3rem 3rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+    }
+    .footer-logo img {
+      height: 48px;
+      filter: invert(1) brightness(0.7);
+      margin-bottom: 1.5rem;
+    }
+    .footer-desc {
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 280px;
+    }
+    .footer-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-copy {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .social-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .social-link:hover { color: var(--accent); }
+
+    /* FLOATING WA */
+    .floating-wa {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9990;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 30px rgba(37,211,102,0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+    .floating-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 40px rgba(37,211,102,0.5);
+    }
+    .floating-wa svg { width: 1.5rem; height: 1.5rem; fill: white; }
+    .wa-pulse {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* FADE-IN ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+    .fade-up-delay-5 { transition-delay: 0.5s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:first-child { grid-row: auto; }
+    }
+
+    @media (max-width: 768px) {
+      #hero { padding: 0 1.5rem 4rem; }
+      #about, #products, #gallery, #testimonials { padding: 5rem 1.5rem; }
+      #why, #process { padding: 5rem 1.5rem; }
+      #cta-final { padding: 7rem 1.5rem; }
+      footer { padding: 4rem 1.5rem 2rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item { height: 220px; }
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .btn-primary { font-size: 0.65rem; padding: 0.85rem 1.75rem; }
+    }
+
+    /* SECTION HEADING */
+    .section-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--white);
+    }
+
+    /* HERO SCROLL INDICATOR */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 1;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollLine 2s ease infinite;
+    }
+    @keyframes scrollLine {
+      0% { height: 0; opacity: 1; }
+      100% { height: 50px; opacity: 0; }
+    }
+    .scroll-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ACCENT LINE */
+    .accent-line {
+      width: 3rem;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    /* LOGO HERO */
+    .hero-logo {
+      position: absolute;
+      top: 7rem;
+      right: 3rem;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .hero-logo img {
+      height: clamp(120px, 25vw, 300px);
+      filter: invert(1);
+    }
+
+    /* PRODUCT PLACEHOLDER */
+    .prod-visual {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, var(--mid), var(--dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .prod-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.02) 0px,
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+    }
+  </style>
+</head>
+<body>
+
+<!-- FLOATING WA BUTTON -->
+<a href="https://wa.me/628998242473" target="_blank" class="floating-wa" aria-label="Chat WhatsApp">
+  <div class="wa-pulse"></div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <img src="/mnt/user-data/uploads/gem_sablon_logo_png_baru.png" alt="GEM SABLON" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:0.2em;color:#f5f2ec;\'>GEM SABLON</span>'" />
+  </div>
+  <div class="nav-links">
+    <a href="#about" class="underline-anim">About</a>
+    <a href="#products" class="underline-anim">Products</a>
+    <a href="#gallery" class="underline-anim">Gallery</a>
+    <a href="#process" class="underline-anim">Process</a>
+    <a href="https://wa.me/628998242473" target="_blank" class="btn-outline" style="margin-left:2rem;padding:0.5rem 1.25rem;font-size:0.65rem;">Order Now</a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+  </div>
+
+  <div class="hero-logo">
+    <img src="/mnt/user-data/uploads/gem_sablon_logo_png_baru.png" alt="" />
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1400px;margin:0 auto;width:100%;">
+    <div class="hero-counter fade-up">EST. 2020 — JAKARTA, INDONESIA</div>
+    <h1 class="hero-headline fade-up fade-up-delay-1">
+      CUSTOM<br />
+      <span>APPAREL</span><br />
+      PREMIUM
+    </h1>
+    <p class="hero-sub fade-up fade-up-delay-2">Crafted with intention. Worn with identity.</p>
+    <div class="hero-tags fade-up fade-up-delay-3">
+      Fast Production <span>·</span> Custom Design <span>·</span> Many Color Choices <span>·</span> Sablon & Bordir
+    </div>
+    <div class="fade-up fade-up-delay-4" style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+      <a href="https://wa.me/628998242473" target="_blank" class="btn-primary">
+        <span>Order via WhatsApp</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="#products" class="btn-outline">View Products</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section style="padding:8rem 3rem;max-width:1400px;margin:0 auto;" id="about">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;" class="about-responsive">
+    <div class="fade-up">
+      <div class="section-label">About Us</div>
+      <div class="accent-line"></div>
+      <h2 class="section-heading">WE CRAFT<br /><em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--accent);">Premium</em><br />IDENTITY</h2>
+      <p style="margin-top:2rem;font-size:0.88rem;line-height:2;color:var(--silver);max-width:420px;">
+        GEM SABLON adalah spesialis custom apparel terpercaya untuk komunitas, perusahaan, event, brand, dan kebutuhan merchandise. Kami menghadirkan produk dengan bahan premium, proses produksi cepat, dan hasil yang konsisten berkualitas tinggi.
+      </p>
+      <p style="margin-top:1rem;font-size:0.88rem;line-height:2;color:var(--muted);max-width:420px;">
+        Dari sablon manual hingga bordir digital — setiap detail dikerjakan dengan presisi dan dedikasi penuh untuk memastikan kepuasan pelanggan.
+      </p>
+      <div style="margin-top:2.5rem;">
+        <a href="https://wa.me/628998242473" target="_blank" class="btn-outline">Konsultasi Gratis</a>
+      </div>
+    </div>
+    <div class="fade-up fade-up-delay-2">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+        <div class="stat-card">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Orders Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3-7</div>
+          <div class="stat-label">Day Production</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">Color Variants</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+      <div style="margin-top:2rem;padding:2rem;border:1px solid rgba(200,184,154,0.15);background:rgba(200,184,154,0.03);">
+        <div class="section-label" style="margin-bottom:0.5rem;">Our Services</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:0.15em;color:var(--silver);line-height:2;">
+          SABLON DTF · SABLON MANUAL · BORDIR KOMPUTER<br/>
+          PRINTING SUBLIMASI · PRESS POLYFLEX · RUBBER PRINT
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section id="products">
+  <div style="max-width:1400px;margin:0 auto;padding:0 3rem;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;" class="fade-up">
+      <div>
+        <div class="section-label">Our Products</div>
+        <div class="accent-line"></div>
+        <h2 class="section-heading">PREMIUM<br />COLLECTION</h2>
+      </div>
+      <p style="font-size:0.82rem;line-height:1.8;color:var(--muted);max-width:320px;">
+        Setiap produk tersedia dalam banyak pilihan warna dengan opsi custom sablon & bordir sesuai kebutuhan Anda.
+      </p>
+    </div>
+  </div>
+
+  <div style="max-width:1400px;margin:0 auto;padding:0 3rem;">
+    <div class="products-grid fade-up fade-up-delay-1">
+
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z"/>
+          </svg>
+        </div>
+        <div class="product-name">Polo Kerah</div>
+        <p class="product-desc">Polo premium dengan collar rapi, cocok untuk seragam kerja, komunitas, dan event formal maupun kasual.</p>
+        <div>
+          <span class="product-tag">30+ Warna</span>
+          <span class="product-tag">Sablon</span>
+          <span class="product-tag">Bordir</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Polo Kerah dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z"/>
+          </svg>
+        </div>
+        <div class="product-name">Kaos Regular Fit 24s</div>
+        <p class="product-desc">Kaos cotton combed 24s dengan fit regular yang nyaman. Material breathable, tahan lama, dan nyaman dipakai seharian.</p>
+        <div>
+          <span class="product-tag">30+ Warna</span>
+          <span class="product-tag">Sablon DTF</span>
+          <span class="product-tag">Manual</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Kaos Regular Fit 24s dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M12 2C8 2 4 6 4 10v2l-1 1v2h18v-2l-1-1v-2c0-4-4-8-8-8z"/><rect x="10" y="17" width="4" height="3" rx="1"/>
+          </svg>
+        </div>
+        <div class="product-name">Topi Baseball</div>
+        <p class="product-desc">Topi baseball struktural dengan material premium. Brim curved yang ikonik, cocok untuk streetwear maupun seragam tim.</p>
+        <div>
+          <span class="product-tag">20+ Warna</span>
+          <span class="product-tag">Bordir</span>
+          <span class="product-tag">Patch</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Topi Baseball dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M12 2C8 2 4 6 4 10v2l-1 1v2h18v-2l-1-1v-2c0-4-4-8-8-8z"/><rect x="10" y="17" width="4" height="3" rx="1"/>
+          </svg>
+        </div>
+        <div class="product-name">Topi Jaring</div>
+        <p class="product-desc">Trucker hat dengan panel jaring belakang untuk sirkulasi udara optimal. Gaya kasual yang timeless dengan panel depan struktural.</p>
+        <div>
+          <span class="product-tag">15+ Warna</span>
+          <span class="product-tag">Bordir</span>
+          <span class="product-tag">Custom</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Topi Jaring dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M16 2H8L4 8v12a2 2 0 002 2h12a2 2 0 002-2V8l-4-6z"/><path d="M8 2v6h8V2"/>
+          </svg>
+        </div>
+        <div class="product-name">Hoodie</div>
+        <p class="product-desc">Hoodie fleece premium dengan potongan oversized yang nyaman. Double lining untuk kehangatan maksimal, kapasitas sablon lebar.</p>
+        <div>
+          <span class="product-tag">25+ Warna</span>
+          <span class="product-tag">Sablon</span>
+          <span class="product-tag">Bordir</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Hoodie dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4M9 4h6M9 20h6M4 9v6M20 9v6"/>
+          </svg>
+        </div>
+        <div class="product-name">Varsity</div>
+        <p class="product-desc">Jaket varsity klasik dengan sleeve kontras. Identik dengan gaya collegiate yang timeless. Tersedia dengan custom letter & patch.</p>
+        <div>
+          <span class="product-tag">Custom</span>
+          <span class="product-tag">Bordir</span>
+          <span class="product-tag">Letter</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Varsity dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="product-name">Rompi Parasut</div>
+        <p class="product-desc">Rompi parasut ringan dan windproof. Cocok untuk outdoor, komunitas hiking, dan gaya streetwear modern yang fungsional.</p>
+        <div>
+          <span class="product-tag">20+ Warna</span>
+          <span class="product-tag">Sablon</span>
+          <span class="product-tag">Bordir</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Rompi Parasut dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card">
+        <div class="prod-visual">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.4)" stroke-width="1">
+            <path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4M3 12h18"/>
+          </svg>
+        </div>
+        <div class="product-name">Jaket Parasut</div>
+        <p class="product-desc">Jaket parasut full-zip dengan material water-resistant berkualitas tinggi. Ringan namun hangat, ideal untuk outdoor dan daily wear.</p>
+        <div>
+          <span class="product-tag">20+ Warna</span>
+          <span class="product-tag">Sablon</span>
+          <span class="product-tag">Bordir</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="https://wa.me/628998242473?text=Halo, saya tertarik order Jaket Parasut dari GEM SABLON" target="_blank" class="btn-wa-green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order Sekarang
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div style="max-width:1200px;margin:0 auto;padding:0 3rem;">
+    <div style="text-align:center;" class="fade-up">
+      <div class="section-label" style="text-align:center;">Why Choose Us</div>
+      <div class="accent-line" style="margin:0 auto 1rem;"></div>
+      <h2 class="section-heading">THE GEM<br /><em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--accent);">Standard</em></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-num">01</div>
+        <div class="why-title">Produksi Cepat</div>
+        <p class="why-desc">Proses produksi 3–7 hari kerja dengan standar quality control ketat di setiap tahap pengerjaan.</p>
+      </div>
+      <div class="why-card fade-up fade-up-delay-1">
+        <div class="why-num">02</div>
+        <div class="why-title">Material Premium</div>
+        <p class="why-desc">Menggunakan bahan pilihan terbaik — cotton combed, fleece, parasut, dan material premium lainnya.</p>
+      </div>
+      <div class="why-card fade-up fade-up-delay-2">
+        <div class="why-num">03</div>
+        <div class="why-title">Banyak Pilihan Warna</div>
+        <p class="why-desc">Tersedia lebih dari 30 pilihan warna untuk setiap produk, memastikan Anda mendapat warna yang tepat.</p>
+      </div>
+      <div class="why-card fade-up fade-up-delay-3">
+        <div class="why-num">04</div>
+        <div class="why-title">Custom Design Support</div>
+        <p class="why-desc">Tim desainer kami siap membantu mewujudkan ide desain Anda dari konsep hingga produk jadi.</p>
+      </div>
+      <div class="why-card fade-up fade-up-delay-4">
+        <div class="why-num">05</div>
+        <div class="why-title">Sablon & Bordir</div>
+        <p class="why-desc">Tersedia berbagai teknik finishing: sablon DTF, manual, rubber, hingga bordir komputer berkualitas tinggi.</p>
+      </div>
+      <div class="why-card fade-up fade-up-delay-5">
+        <div class="why-num">06</div>
+        <div class="why-title">Harga Terjangkau</div>
+        <p class="why-desc">Kualitas premium dengan harga yang kompetitif. Cocok untuk order satuan maupun bulk dalam jumlah besar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section id="gallery">
+  <div class="fade-up">
+    <div class="section-label">Gallery</div>
+    <div class="accent-line"></div>
+    <h2 class="section-heading">OUR<br />WORK</h2>
+  </div>
+
+  <div class="gallery-grid fade-up fade-up-delay-1">
+    <div class="gallery-item">
+      <div class="gallery-inner-pattern"></div>
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.2)" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:rgba(200,184,154,0.2);text-transform:uppercase;">Campaign Shot</span>
+      </div>
+      <div class="gallery-overlay">
+        <span class="gallery-label">Premium Collection — S/S 2025</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-inner-pattern"></div>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.2)" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:rgba(200,184,154,0.2);text-transform:uppercase;">Hoodie Detail</span>
+      </div>
+      <div class="gallery-overlay">
+        <span class="gallery-label">Custom Hoodie</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-inner-pattern"></div>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.2)" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:rgba(200,184,154,0.2);text-transform:uppercase;">Polo Kerah</span>
+      </div>
+      <div class="gallery-overlay">
+        <span class="gallery-label">Polo Kerah Series</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-inner-pattern"></div>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.2)" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:rgba(200,184,154,0.2);text-transform:uppercase;">Topi Baseball</span>
+      </div>
+      <div class="gallery-overlay">
+        <span class="gallery-label">Caps Collection</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-inner-pattern"></div>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(200,184,154,0.2)" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:rgba(200,184,154,0.2);text-transform:uppercase;">Team Order</span>
+      </div>
+      <div class="gallery-overlay">
+        <span class="gallery-label">Bulk Team Order</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;text-align:center;" class="fade-up fade-up-delay-2">
+    <a href="https://wa.me/628998242473?text=Halo, saya ingin melihat portofolio lengkap GEM SABLON" target="_blank" class="btn-outline">
+      Lihat Portofolio Lengkap
+    </a>
+  </div>
+</section>
+
+<!-- ORDER PROCESS -->
+<section id="process">
+  <div style="max-width:1200px;margin:0 auto;padding:0 3rem;">
+    <div style="text-align:center;" class="fade-up">
+      <div class="section-label" style="text-align:center;">How to Order</div>
+      <div class="accent-line" style="margin:0 auto 1rem;"></div>
+      <h2 class="section-heading">ORDER<br /><em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--accent);">Process</em></h2>
+      <p style="margin-top:1.5rem;font-size:0.82rem;line-height:2;color:var(--muted);max-width:450px;margin-left:auto;margin-right:auto;">
+        Proses pemesanan yang mudah dan transparan. Kami memastikan setiap langkah berjalan lancar dari konsultasi hingga produk sampai ke tangan Anda.
+      </p>
+    </div>
+    <div class="process-steps fade-up fade-up-delay-1">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Konsultasi Design</div>
+        <p class="step-desc">Hubungi kami via WhatsApp. Ceritakan kebutuhan, kirim referensi desain, dan diskusikan detail produk.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Pilih Produk & Warna</div>
+        <p class="step-desc">Pilih jenis produk, ukuran, warna, dan teknik finishing (sablon/bordir) yang sesuai keinginan Anda.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Proses Produksi</div>
+        <p class="step-desc">Produksi dimulai setelah konfirmasi & DP. Estimasi 3–7 hari kerja dengan update progres berkala.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Pengiriman</div>
+        <p class="step-desc">Produk dikemas rapi dan dikirim ke seluruh Indonesia. Tracking tersedia untuk memantau pengiriman.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:4rem;" class="fade-up fade-up-delay-2">
+      <a href="https://wa.me/628998242473?text=Halo GEM SABLON, saya ingin mulai konsultasi order custom apparel" target="_blank" class="btn-primary">
+        <span>Mulai Konsultasi Sekarang</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="fade-up">
+    <div class="section-label">Testimonials</div>
+    <div class="accent-line"></div>
+    <h2 class="section-heading">WHAT THEY<br /><em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--accent);">Say</em></h2>
+  </div>
+  <div class="testi-grid fade-up fade-up-delay-1">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">Kualitas sablon sangat bagus dan tahan lama. Sudah 3 bulan dipakai, warna masih cerah dan tidak retak. Pasti order lagi!</p>
+      <div class="testi-author">
+        <strong>Andi Firmansyah</strong>
+        Komunitas Motor Jakarta
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">Produksi cepat dan hasilnya memuaskan. Kami order 150 polo untuk seragam kantor dan semuanya sesuai ekspektasi. Recommended!</p>
+      <div class="testi-author">
+        <strong>Sarah Wijaya</strong>
+        PT Maju Bersama
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">GEM SABLON sangat profesional. Dari konsultasi sampai pengiriman semua lancar. Bordir logo kami hasilnya sangat rapi dan detail.</p>
+      <div class="testi-author">
+        <strong>Rizky Pratama</strong>
+        Brand Streetwear Lokal
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">Harga kompetitif dengan kualitas yang tidak main-main. Topi baseball yang kami pesan untuk event terlihat sangat premium.</p>
+      <div class="testi-author">
+        <strong>Dewi Kusuma</strong>
+        Event Organizer Bandung
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">Tim GEM SABLON sangat helpful dan responsif. Mereka membantu memperbaiki desain kami hingga sempurna. Hasilnya luar biasa!</p>
+      <div class="testi-author">
+        <strong>Budi Santoso</strong>
+        UKM Kampus Jakarta Selatan
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote">Sudah langganan sejak 2 tahun lalu. Konsistensi kualitas GEM SABLON tidak pernah mengecewakan. Selalu on-time dan rapih.</p>
+      <div class="testi-author">
+        <strong>Mila Rahayu</strong>
+        Distro Merchandise Yogyakarta
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta-final">
+  <div class="fade-up" style="position:relative;z-index:1;">
+    <div class="section-label" style="text-align:center;">Get Started</div>
+    <h2 class="cta-headline">READY TO CREATE<br />YOUR CUSTOM<br /><em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--accent);">Apparel?</em></h2>
+    <p class="cta-sub">Wujudkan visi Anda bersama GEM SABLON.<br />Konsultasi gratis, no commitment.</p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="https://wa.me/628998242473?text=Halo GEM SABLON! Saya ingin membuat custom apparel premium" target="_blank" class="btn-primary" style="font-size:0.8rem;padding:1.25rem 3rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="position:relative;z-index:1;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span>Chat WhatsApp Now</span>
+      </a>
+    </div>
+    <p style="margin-top:2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.25em;color:var(--muted);">
+      08998242473 — RESPONSE CEPAT, KONSULTASI GRATIS
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <img src="/mnt/user-data/uploads/gem_sablon_logo_png_baru.png" alt="GEM SABLON" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:0.2em;color:rgba(245,242,236,0.5);margin-bottom:1.5rem;\'>GEM SABLON</div>'" />
+      </div>
+      <p class="footer-desc">
+        Spesialis custom apparel premium — sablon, bordir, dan produksi pakaian berkualitas tinggi untuk komunitas, perusahaan, event, dan brand Anda.
+      </p>
+      <div style="margin-top:1.5rem;">
+        <a href="https://wa.me/628998242473" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.15em;color:var(--accent-dim);text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          08998242473
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Products</div>
+      <div class="footer-links">
+        <a href="#products">Polo Kerah</a>
+        <a href="#products">Kaos Regular Fit</a>
+        <a href="#products">Topi Baseball</a>
+        <a href="#products">Topi Jaring</a>
+        <a href="#products">Hoodie</a>
+        <a href="#products">Varsity</a>
+        <a href="#products">Rompi Parasut</a>
+        <a href="#products">Jaket Parasut</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Services</div>
+      <div class="footer-links">
+        <a href="#about">Sablon DTF</a>
+        <a href="#about">Sablon Manual</a>
+        <a href="#about">Bordir Komputer</a>
+        <a href="#about">Printing Sublimasi</a>
+        <a href="#about">Press Polyflex</a>
+        <a href="#process">Cara Order</a>
+      </div>
+      <div style="margin-top:2rem;">
+        <div class="footer-heading">Follow Us</div>
+        <div class="social-links" style="flex-wrap:wrap;gap:1rem;">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">TikTok</a>
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Shopee</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 GEM SABLON. All rights reserved. Custom Fashion Product.</div>
+    <div class="footer-copy">Jakarta, Indonesia</div>
+  </div>
+</footer>
+
+<script>
+  // NAV scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // FADE UP on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Hero immediate visibility
+  setTimeout(() => {
+    document.querySelectorAll('#hero .fade-up').forEach(el => el.classList.add('visible'));
+  }, 100);
+
+  // About responsive grid
+  const aboutGrid = document.querySelector('.about-responsive');
+  if (aboutGrid && window.innerWidth < 768) {
+    aboutGrid.style.gridTemplateColumns = '1fr';
+    aboutGrid.style.gap = '3rem';
+  }
+</script>
+</body>
+</html>
